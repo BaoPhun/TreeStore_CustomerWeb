@@ -1,0 +1,100 @@
+/* Định dạng chung cho form */
+.login {
+    background-image: url('/images/loginPage1.jpg'); /* Đường dẫn tới hình ảnh */
+    width: 100%;
+    height: 100vh; /* Chiều cao 100% viewport */
+    background-size: cover; /* Đảm bảo hình ảnh phủ toàn bộ */
+    background-position: center; /* Canh giữa hình ảnh */
+    display: flex; /* Sử dụng flex để căn giữa nội dung */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+  }
+  
+  .login-container {
+    width: 100%;
+    max-width: 500px; /* Giảm chiều rộng tối đa của form cho phù hợp với trang quên mật khẩu */
+    padding: 50px 20px; /* Thêm khoảng cách bên trong */
+    background-color: rgba(255, 255, 255, 0.8); /* Màu nền trắng với độ trong suốt */
+    border-radius: 8px; /* Bo góc */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng cho form */
+  }
+ 
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f7f9fc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  .input-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  input[type="email"],
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+    transition: border-color 0.3s ease;
+  }
+  
+  input[type="email"]:focus,
+  input[type="text"]:focus,
+  input[type="password"]:focus {
+    border-color: #3b82f6;
+    outline: none;
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.2);
+  }
+  
+  .error-message {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  .success-message {
+    color: #2ecc71;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #3b82f6;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  button:not(:disabled):hover {
+    background-color: #2563eb;
+  }
+  .hidden {
+    display: none; /* Hoặc có thể dùng visibility: hidden; */
+  }
+  

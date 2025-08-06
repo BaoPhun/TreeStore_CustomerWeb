@@ -1,0 +1,67 @@
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInDown {
+  from { transform: translateY(-30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Hiệu ứng ảnh di chuyển lên xuống */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* Hiệu ứng nhấp nháy nhẹ cho hình tròn */
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
+}
+
+.animate-fadeIn { animation: fadeIn 1.2s ease-in-out; }
+.animate-slideInDown { animation: slideInDown 1.2s ease-out; }
+.animate-slideInUp { animation: slideInUp 1.2s ease-out; }
+.animate-bounce { animation: float 3s ease-in-out infinite; }
+.animate-pulse { animation: pulse 3s ease-in-out infinite; }
+
+
+
+@keyframes bounceUpDown {
+    0% {
+      transform: translateY(0); /* Vị trí ban đầu */
+    }
+    50% {
+      transform: translateY(-15px); /* Di chuyển lên */
+    }
+    100% {
+      transform: translateY(0); /* Quay về vị trí ban đầu */
+    }
+  }
+  
+  .fade-in  {
+    animation: bounceUpDown 1.5s ease-in-out infinite; /* Lặp vô hạn */
+  }
+  
+  .moving-img {
+    animation: floatImage 3s ease-in-out infinite;
+  }
+  
+  @keyframes floatImage {
+    0% {
+      transform: translateX(100);
+    }
+    50% {
+      transform: translateX(-100px);
+    }
+    100% {
+      transform: translateX(100);
+    }
+  }
+  

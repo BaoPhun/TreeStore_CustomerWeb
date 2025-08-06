@@ -1,0 +1,55 @@
+<nav class="fixed top-0 left-0 w-full bg-white shadow-md z-50 flex items-center justify-between  px-6 py-3">
+  <!-- Logo -->
+  <div class="logo">
+    <img src="images/logolala.png" alt="Logo" class="h-10" />
+  </div>
+
+  <!-- Nút mở menu trên mobile -->
+  <button class="block md:hidden text-gray-700" (click)="toggleMobileMenu()">
+    <i class="fas fa-bars text-2xl"></i>
+  </button>
+
+  <!-- Menu Desktop -->
+  <ul class="hidden md:flex space-x-6 text-gray-800 font-medium">
+    <li (click)="navigateTo('/home')" class="cursor-pointer hover:text-blue-500">TRANG CHỦ</li>
+    <li (click)="navigateTo('/gioithieu')" class="cursor-pointer hover:text-blue-500">GIỚI THIỆU</li>
+    <li (click)="navigateTo('/sanpham')" class="cursor-pointer hover:text-blue-500">SẢN PHẨM</li>
+    <li (click)="navigateTo('/lienhe')" class="cursor-pointer hover:text-blue-500">LIÊN HỆ</li>
+  </ul>
+
+  <!-- Menu Mobile -->
+  <ul
+    class="absolute top-14 left-0 w-full bg-white shadow-md flex flex-col space-y-3 text-gray-800 font-medium p-4 md:hidden"
+    [ngClass]="{ 'hidden': !isMobileMenuOpen }"
+  >
+    <li (click)="navigateTo('/home'); toggleMobileMenu()" class="cursor-pointer hover:text-blue-500">TRANG CHỦ</li>
+    <li (click)="navigateTo('/gioithieu'); toggleMobileMenu()" class="cursor-pointer hover:text-blue-500">GIỚI THIỆU</li>
+    <li (click)="navigateTo('/sanpham'); toggleMobileMenu()" class="cursor-pointer hover:text-blue-500">SẢN PHẨM</li>
+    <li (click)="navigateTo('/lienhe'); toggleMobileMenu()" class="cursor-pointer hover:text-blue-500">LIÊN HỆ</li>
+  </ul>
+
+  <!-- Các icon hiển thị trên mọi kích thước -->
+  <div class="flex items-center space-x-4">
+
+    <!-- Giỏ hàng -->
+    <a (click)="navigateTo('/giohang')" class="cart-icon relative cursor-pointer">
+      <i class="fas fa-shopping-cart text-gray-700 hover:text-blue-500"></i>
+      <span *ngIf="cartCount > 0" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">{{ cartCount }}</span>
+    </a>
+
+    <!-- Tài khoản -->
+    <div class="dropdown-container relative">
+      <a (click)="onAccountIconClick()" class="cursor-pointer">
+        <i class="fas fa-user text-gray-700 hover:text-blue-500"></i>
+      </a>
+
+      <div *ngIf="isDropdownOpen" class="absolute right-0 mt-2 bg-white shadow-lg rounded-md w-40 py-2">
+        <ul class="text-gray-700">
+          <li (click)="navigateToAccount(); closeDropdown()" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Thông tin tài khoản</li>
+          <li (click)="navigateToOrder('/lichsudonhang'); closeDropdown()" class="px-4 py-2 hover:bg-gray-100 cursor-pointer">Đơn hàng của tôi</li>
+          <li (click)="logout(); closeDropdown()" class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-500">Đăng xuất</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

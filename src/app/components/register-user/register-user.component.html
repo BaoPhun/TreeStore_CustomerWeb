@@ -1,0 +1,117 @@
+<div class="w-full min-h-screen flex items-center justify-center bg-green-100 py-6">
+  <div class="bg-white rounded-lg shadow-md p-5 w-full max-w-2xl mx-4">
+    <h2 class="text-xl font-bold text-center text-gray-800 mb-4">Đăng Ký</h2>
+    
+    <form [formGroup]="registerForm" (ngSubmit)="register()" class="space-y-3">
+      <!-- Grid layout -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Họ tên -->
+        <div class="space-y-1">
+          <label for="fullName" class="block text-sm font-medium text-gray-700">Tên của bạn</label>
+          <input 
+            type="text" 
+            id="fullName" 
+            formControlName="fullName" 
+            required
+            class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" 
+          />
+          <div *ngIf="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched" class="text-red-500 text-xs">
+            Vui lòng nhập tên đầy đủ!
+          </div>
+        </div>
+        
+        <!-- Email -->
+        <div class="space-y-1">
+          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email" 
+            required
+            class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" 
+          />
+          <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-red-500 text-xs">
+            Vui lòng nhập email hợp lệ!
+          </div>
+        </div>
+        
+        <!-- Số điện thoại -->
+        <div class="space-y-1">
+          <label for="phone" class="block text-sm font-medium text-gray-700">Số điện thoại</label>
+          <input 
+            type="tel" 
+            id="phone" 
+            formControlName="phone" 
+            required
+            class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" 
+          />
+          <div *ngIf="registerForm.get('phone')?.invalid && registerForm.get('phone')?.touched" class="text-red-500 text-xs">
+            Vui lòng nhập số điện thoại!
+          </div>
+        </div>
+        
+        <!-- Tên đăng nhập -->
+        <div class="space-y-1">
+          <label for="username" class="block text-sm font-medium text-gray-700">Tên đăng nhập</label>
+          <input 
+            type="text" 
+            id="username" 
+            formControlName="username" 
+            required
+            class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" 
+          />
+          <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched" class="text-red-500 text-xs">
+            Vui lòng nhập tên đăng nhập!
+          </div>
+        </div>
+        
+        <!-- Mật khẩu -->
+        <div class="space-y-1">
+          <label for="password" class="block text-sm font-medium text-gray-700">Mật khẩu</label>
+          <input 
+            type="password" 
+            id="password" 
+            formControlName="password" 
+            required
+            class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" 
+          />
+          <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-red-500 text-xs">
+            Mật khẩu phải có ít nhất 6 ký tự!
+          </div>
+        </div>
+        
+        <!-- Địa chỉ -->
+        <div class="space-y-1">
+          <label for="address" class="block text-sm font-medium text-gray-700">Địa chỉ</label>
+          <input 
+            type="text" 
+            id="address" 
+            formControlName="address"
+            class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" 
+          />
+        </div>
+      </div>
+      
+      <!-- Nút đăng ký -->
+      <div class="pt-4">
+        <button 
+          type="submit" 
+          [disabled]="registerForm.invalid"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-3 rounded-md transition duration-200 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Đăng Ký
+        </button>
+      </div>
+      
+      <!-- Chuyển sang trang đăng nhập -->
+      <div class="text-center pt-2">
+        <p class="text-sm text-gray-600">
+          Đã có tài khoản? 
+          <a (click)="goToLogin()" class="text-blue-600 hover:text-blue-800 cursor-pointer">
+            Đăng nhập
+          </a>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Bancaycanh</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+  <!-- Facebook Messenger Chat Plugin -->
+<div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      xfbml            : true,
+      version          : 'v18.0'
+    });
+  };
+
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<!-- Messenger Chat Plugin -->
+<div class="fb-customerchat z-100"
+  attribution="setup_tool"
+  page_id="423190620871450" 
+  theme_color="#0084ff"
+  logged_in_greeting="Chào bạn! Chúng tôi có thể giúp gì không?"
+  logged_out_greeting="Chào bạn! Hãy đăng nhập để trò chuyện với chúng tôi.">
+</div>
+
+    <!-- End of LiveChat code -->
+  </head>
+  <body>
+    <app-root></app-root>
+
+  </body>
+</html>

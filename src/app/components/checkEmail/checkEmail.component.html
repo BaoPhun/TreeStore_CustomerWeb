@@ -1,0 +1,34 @@
+<div class="login">
+    <div class="login-container">
+      <form [formGroup]="otpForm" (ngSubmit)="verifyOtp()">
+        <div class="input-group">
+          <label for="otp">OTP</label>
+          <input type="text" id="otp" placeholder="Nhập mã OTP" formControlName="otp" required />
+          <div *ngIf="otpForm.controls['otp'].invalid && otpForm.controls['otp'].touched" class="error-message">
+            OTP phải gồm 6 ký tự
+          </div>
+        </div>
+  
+        <div class="input-group">
+          <label for="newPassword">Mật khẩu mới</label>
+          <input type="password" id="newPassword" placeholder="Nhập mật khẩu mới" formControlName="newPassword" required />
+          <div *ngIf="otpForm.controls['newPassword'].invalid && otpForm.controls['newPassword'].touched" class="error-message">
+            Mật khẩu phải có ít nhất 6 ký tự
+          </div>
+        </div>
+  
+        <button type="submit" [disabled]="otpForm.invalid">Xác nhận</button>
+  
+        <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+        <div *ngIf="errorMessage" class="error-message">
+          <div *ngIf="errorMessage === 'Mật khẩu mới không được trùng với mật khẩu cũ'">
+            Mật khẩu mới không được trùng với mật khẩu cũ
+          </div>
+          <div *ngIf="errorMessage !== 'Mật khẩu mới không được trùng với mật khẩu cũ'">
+            {{ errorMessage }}
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  

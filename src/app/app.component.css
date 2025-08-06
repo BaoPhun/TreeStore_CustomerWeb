@@ -1,0 +1,80 @@
+.hidden {
+  display: none; /* Hoặc có thể dùng visibility: hidden; */
+}
+
+.falling-leaves-container {
+position: fixed;
+overflow: hidden;
+width: 100%;
+height: 100vh; 
+}
+.leaf {
+position: absolute;
+color: #107c10; /* Màu xanh lá cây */
+font-size: 24px;
+opacity: 0.8;
+animation: fall 5s linear infinite;
+}
+
+/* Keyframes cho hiệu ứng rơi */
+@keyframes fall {
+0% {
+  transform: translateY(-100px) rotate(0deg);
+  opacity: 1;
+}
+100% {
+  transform: translateY(100vh) rotate(360deg);
+  opacity: 0;
+}
+}
+
+/* Điều chỉnh thời gian và vị trí của các lá */
+.leaf:nth-child(1) { left: 10%; animation-duration: 5s; }
+.leaf:nth-child(2) { left: 20%; animation-duration: 7s; }
+.leaf:nth-child(3) { left: 30%; animation-duration: 6s; }
+.leaf:nth-child(4) { left: 40%; animation-duration: 8s; }
+.leaf:nth-child(5) { left: 50%; animation-duration: 6.5s; }
+.leaf:nth-child(6) { left: 160%; animation-duration: 6s; }
+.leaf:nth-child(7) { left: 86%; animation-duration: 8s; }
+.leaf:nth-child(8) { left: 90%; animation-duration: 10.5s; }
+.leaf:nth-child(9) { left: 97%; animation-duration: 8s; }
+.leaf:nth-child(10) { left: 1%; animation-duration: 17.5s; }
+.leaf:nth-child(11) { left: 99%; animation-duration: 4s; }
+.leaf:nth-child(12) { left: 3%; animation-duration: 4.5s; }
+
+
+/* Điều chỉnh thời gian và vị trí của các lá */
+.snowflake:nth-child(15) { left: 10%; animation-duration: 5s; }
+.snowflake:nth-child(16) { left: 20%; animation-duration: 7s; }
+.snowflake:nth-child(17) { left: 30%; animation-duration: 6s; }
+.snowflake:nth-child(18) { left: 40%; animation-duration: 8s; }
+.snowflake:nth-child(19) { left: 50%; animation-duration: 6.5s; }
+.snowflake:nth-child(20) { left: 160%; animation-duration: 6s; }
+.snowflake:nth-child(21) { left: 86%; animation-duration: 8s; }
+.snowflake:nth-child(22) { left: 90%; animation-duration: 10.5s; }
+.snowflake:nth-child(23) { left: 97%; animation-duration: 8s; }
+.snowflake:nth-child(24) { left: 1%; animation-duration: 17.5s; }
+.snowflake:nth-child(25) { left: 99%; animation-duration: 4s; }
+.snowflake:nth-child(26) { left: 3%; animation-duration: 4.5s; }
+
+
+.snowflake {
+position: absolute;
+color: #ffffff; /* Màu xanh lá cây */
+font-size: 24px;
+opacity: 0.8;
+display: none;
+animation: fall 5s linear infinite;
+}
+
+/* Keyframes cho hiệu ứng rơi */
+@keyframes fall {
+0% {
+  transform: translateY(-100px) rotate(0deg);
+  opacity: 1;
+}
+100% {
+  transform: translateY(100vh) rotate(360deg);
+  opacity: 0;
+}
+}

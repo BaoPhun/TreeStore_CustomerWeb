@@ -1,0 +1,42 @@
+<!-- Hiển thị cảnh báo nếu không có đơn hàng -->
+<div *ngIf="orders.length === 0" class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4">
+  Bạn chưa có đơn hàng nào.
+</div>
+
+<!-- Bảng danh sách đơn hàng -->
+<div class="overflow-x-auto w-full relative pt-6 mt-10">
+  <div class="shadow-lg rounded-lg overflow-hidden">
+    <table class="w-full border-collapse bg-white text-left text-sm">
+      <thead class="bg-gray-100 text-gray-700">
+        <tr>
+          <th class="px-6 py-3">Ngày đặt</th>
+          <th class="px-6 py-3">Trạng thái</th>
+          <th class="px-6 py-3">Tổng giá</th>
+          <th class="px-6 py-3 text-center">Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders" class="border-b hover:bg-gray-50">
+          <td class="px-6 py-4">{{ order.orderDate || 'Chưa có ngày đặt' }}</td>
+          <td class="px-6 py-4">
+            <span [ngClass]="{
+              'bg-yellow-200 text-yellow-800 px-3 py-1 rounded-md': order.state === 0,
+              'bg-blue-200 text-blue-800 px-3 py-1 rounded-md': order.state === 1 || order.state === 2,
+              'bg-green-200 text-green-800 px-3 py-1 rounded-md': order.state === 3,
+              'bg-red-200 text-red-800 px-3 py-1 rounded-md': order.state === 4
+            }">
+              {{ getStateText(order.state) }}
+            </span>
+          </td>
+          <td class="px-6 py-4">{{ order.totalAmount | number }} VNĐ</td>
+          <td class="px-6 py-4 text-center">
+            <button *ngIf="order.orderId" (click)="viewOrder(order.orderId)" 
+              class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
+              Chi Tiết
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

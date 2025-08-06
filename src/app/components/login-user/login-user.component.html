@@ -1,0 +1,73 @@
+
+
+<!-- Trang đăng nhập - chiếm toàn bộ màn hình -->
+<div class="w-full h-screen flex items-center justify-center bg-green-100">
+  <div class="bg-white rounded-lg shadow-md p-6 w-full max-w-md mx-4">
+    <h2 *ngIf="!isLoggedIn" class="text-2xl font-bold text-center text-gray-800 mb-6">Đăng Nhập</h2>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="space-y-4">
+      <div class="space-y-2">
+        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+        <div class="relative">
+          <input 
+            type="email" 
+            id="email" 
+            placeholder="Nhập email của bạn" 
+            required 
+            formControlName="email"
+            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 pl-10" 
+          />
+          <i class="fas fa-envelope absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+        </div>
+      </div>
+      
+      <div class="space-y-2">
+        <label for="password" class="block text-sm font-medium text-gray-700">Mật Khẩu</label>
+        <div class="relative">
+          <input 
+            [type]="isPasswordVisible ? 'text' : 'password'" 
+            id="password" 
+            placeholder="Nhập mật khẩu" 
+            required
+            formControlName="password"
+            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 pl-10 pr-10" 
+          />
+          <i class="fas fa-eye absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer" (click)="togglePasswordVisibility()"></i>
+          <i class="fas fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+        </div>
+      </div>
+      
+      <div class="pt-2">
+        <button 
+          type="submit" 
+          [disabled]="loginForm.invalid"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-200 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Đăng Nhập
+        </button>
+      </div>
+    </form>
+    
+    <div class="mt-6 space-y-4">
+      <div class="flex justify-end">
+        <a (click)="goToForgotPassword()" class="text-sm text-blue-600 hover:text-blue-800 cursor-pointer">Quên Mật Khẩu?</a>
+      </div>
+      
+      <div class="flex justify-center space-x-4 py-2">
+        <a href="https://github.com" target="_blank" class="text-gray-700 hover:text-gray-900 text-xl">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://facebook.com" target="_blank" class="text-blue-600 hover:text-blue-800 text-xl">
+          <i class="fab fa-facebook"></i>
+        </a>
+        <a href="https://google.com" target="_blank" class="text-red-600 hover:text-red-800 text-xl">
+          <i class="fab fa-google"></i>
+        </a>
+      </div>
+      
+      <p class="text-center text-sm text-gray-600">
+        Chưa có tài khoản? <a (click)="goToRegister()" class="text-blue-600 hover:text-blue-800 cursor-pointer">Đăng Ký</a>
+      </p>
+    </div>
+  </div>
+</div>

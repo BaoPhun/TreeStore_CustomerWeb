@@ -1,0 +1,16 @@
+.slider {
+    position: relative;
+    width: 100%;    
+    padding-top: 56.25%; /* Tỷ lệ 16:9 (9/16 = 0.5625) */
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10%;
+    height: 20%;
+    object-fit: cover; /* Hoặc sử dụng object-fit: contain; */
+    transition: opacity 1s ease; /* Hiệu ứng chuyển đổi mượt mà */
+}

@@ -1,0 +1,46 @@
+<div *ngIf="isLoading" class="loading-spinner">
+    Đang tải dữ liệu...
+  </div>
+  
+  <div *ngIf="!isLoading && orderDetail" class="order-detail">
+    <!-- Thông tin khách hàng -->
+    <div class="customer-info">
+      <h2>Thông tin Khách hàng</h2>
+      <p>Tên khách hàng: {{ orderDetail.nameCustomer || 'Không có' }}</p>
+      <p>Địa chỉ: {{ orderDetail.address || 'Không có' }}</p>
+      <p>Trạng thái: {{ getStateDescription(orderDetail.stateId || 0) }}</p>
+      
+    </div>
+  
+    <!-- Danh sách sản phẩm trong đơn hàng -->
+    <div class="order-products">
+      <h3>Chi tiết sản phẩm</h3>
+      <table class="product-table">
+        <thead>
+          <tr>
+            <th>Hình ảnh</th>
+            <th>Tên sản phẩm</th>
+            <th>Số lượng</th>
+            <th>Giá</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of orderDetail?.detailProducts">
+            <td *ngIf="product.img">
+              <!-- Kiểm tra và kết hợp rootUrl với product.img -->
+              <img [src]="rootUrl + '/' + product.img" alt="{{ product.name }}" width="50" height="50">
+            </td>
+            <td>{{ product.name || 'Không có tên' }}</td>
+            <td>{{ product.quantity || 0 }}</td>
+            <td>{{ product.price |number}} VNĐ</td>
+          </tr>
+        </tbody>
+        
+      </table>
+    </div>
+  </div>
+  
+  <div *ngIf="!isLoading && !orderDetail" class="no-data">
+    Không có dữ liệu chi tiết đơn hàng.
+  </div>
+  
