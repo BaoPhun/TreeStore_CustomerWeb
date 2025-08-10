@@ -80,5 +80,8 @@ export class OrderDetailComponent implements OnInit {
   get rootUrl(): string {
     return this._rootUrl || this.config.rootUrl;
   }
-  
+  goBack() {
+  window.history.back();
+}
+
 }

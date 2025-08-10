@@ -71,10 +71,6 @@ export class OrderHistoryComponent implements OnInit {
       console.error("Không tìm thấy ID người dùng trong storage.");
     }
   }
-  
-  
-  
-  
 
   viewOrder(orderId: number): void {
     this.router.navigate(['/order-detail', orderId]).then((navigation) => {
@@ -112,4 +108,24 @@ export class OrderHistoryComponent implements OnInit {
   closeOrderDetailModal(): void {
     this.isModalVisible = false;
   }
+
+ currentPage = 1;
+itemsPerPage = 10;
+
+get paginatedOrders(): GetListOrderByCustomerIdSpResult[] {
+  const start = (this.currentPage - 1) * this.itemsPerPage;
+  return this.orders.slice(start, start + this.itemsPerPage);
+}
+
+get totalPages(): number {
+  return Math.ceil(this.orders.length / this.itemsPerPage);
+}
+
+changePage(page: number): void {
+  if (page >= 1 && page <= this.totalPages) {
+    this.currentPage = page;
+  }
+}
+
+
 }

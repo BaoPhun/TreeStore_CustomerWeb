@@ -1,46 +1,70 @@
-<div *ngIf="isLoading" class="loading-spinner">
-    Đang tải dữ liệu...
+<div *ngIf="isLoading" class="text-center py-10 text-gray-500">
+  Đang tải dữ liệu...
+</div>
+
+<div *ngIf="!isLoading && orderDetail" class="max-w-4xl mx-auto mt-10 mb-20 px-4">
+
+  <!-- Nút quay lại -->
+  <button (click)="goBack()" 
+    class="mb-6 px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded shadow">
+    ← Quay lại
+  </button>
+
+  <!-- Thông tin khách hàng -->
+  <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
+    <h2 class="text-xl font-semibold mb-4 border-b pb-2">Thông tin Khách hàng</h2>
+    <p><span class="font-medium">Tên khách hàng:</span> {{ orderDetail.nameCustomer || 'Không có' }}</p>
+    <p><span class="font-medium">Địa chỉ:</span> {{ orderDetail.address || 'Không có' }}</p>
+    <p>
+      <span class="font-medium">Trạng thái:</span>
+      <span 
+        class="inline-block px-3 py-1 rounded-full font-semibold text-sm"
+        [ngClass]="{
+          'bg-yellow-200 text-yellow-800 border border-yellow-400': orderDetail.stateId === 0,
+          'bg-blue-200 text-blue-800 border border-blue-400': orderDetail.stateId === 1 || orderDetail.stateId === 2,
+          'bg-green-200 text-green-800 border border-green-400': orderDetail.stateId === 3,
+          'bg-red-200 text-red-800 border border-red-400': orderDetail.stateId === 4
+        }"
+      >
+        {{ getStateDescription(orderDetail.stateId || 0) }}
+      </span>
+    </p>
   </div>
-  
-  <div *ngIf="!isLoading && orderDetail" class="order-detail">
-    <!-- Thông tin khách hàng -->
-    <div class="customer-info">
-      <h2>Thông tin Khách hàng</h2>
-      <p>Tên khách hàng: {{ orderDetail.nameCustomer || 'Không có' }}</p>
-      <p>Địa chỉ: {{ orderDetail.address || 'Không có' }}</p>
-      <p>Trạng thái: {{ getStateDescription(orderDetail.stateId || 0) }}</p>
-      
-    </div>
-  
-    <!-- Danh sách sản phẩm trong đơn hàng -->
-    <div class="order-products">
-      <h3>Chi tiết sản phẩm</h3>
-      <table class="product-table">
-        <thead>
+
+  <!-- Danh sách sản phẩm trong đơn hàng -->
+  <div class="bg-white shadow-lg rounded-lg p-6">
+    <h3 class="text-lg font-semibold mb-4 border-b pb-2">Chi tiết sản phẩm</h3>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead class="bg-gray-100">
           <tr>
-            <th>Hình ảnh</th>
-            <th>Tên sản phẩm</th>
-            <th>Số lượng</th>
-            <th>Giá</th>
+            <th class="px-4 py-2">Hình ảnh</th>
+            <th class="px-4 py-2">Tên sản phẩm</th>
+            <th class="px-4 py-2">Số lượng</th>
+            <th class="px-4 py-2">Giá</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let product of orderDetail?.detailProducts">
-            <td *ngIf="product.img">
-              <!-- Kiểm tra và kết hợp rootUrl với product.img -->
-              <img [src]="rootUrl + '/' + product.img" alt="{{ product.name }}" width="50" height="50">
+          <tr *ngFor="let product of orderDetail?.detailProducts" class="border-b">
+            <td class="px-4 py-2">
+              <img *ngIf="product.img" 
+                   [src]="rootUrl + '/' + product.img" 
+                   alt="{{ product.name }}" 
+                   class="w-12 h-12 object-cover rounded">
             </td>
-            <td>{{ product.name || 'Không có tên' }}</td>
-            <td>{{ product.quantity || 0 }}</td>
-            <td>{{ product.price |number}} VNĐ</td>
+            <td class="px-4 py-2">{{ product.name || 'Không có tên' }}</td>
+            <td class="px-4 py-2">{{ product.quantity || 0 }}</td>
+            <td class="px-4 py-2">{{ product.price | number }} VNĐ</td>
           </tr>
         </tbody>
-        
       </table>
     </div>
   </div>
-  
-  <div *ngIf="!isLoading && !orderDetail" class="no-data">
-    Không có dữ liệu chi tiết đơn hàng.
-  </div>
-  
+
+</div>
+
+<!-- Nếu không có dữ liệu -->
+<div *ngIf="!isLoading && !orderDetail" 
+  class="text-center py-10 text-gray-500 bg-yellow-100 border-l-4 border-yellow-500 max-w-lg mx-auto mt-10 mb-20 rounded-lg shadow">
+  Không có dữ liệu chi tiết đơn hàng.
+</div>

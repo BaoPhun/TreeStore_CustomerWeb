@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ApiConfiguration } from '../../api/api-configuration';
 import Swal from 'sweetalert2';
+import { GetListProductSpResultListResultCustomModel } from '../../api/models/get-list-product-sp-result-list-result-custom-model';
+
 
 @Component({
   selector: 'app-product',
@@ -115,55 +117,69 @@ export class ProductComponent implements OnInit {
   }
   
   
-  onSearch(): void {
-    // Tạo object chứa các tham số tìm kiếm
-    const params: any = {};
-    
-    // Thêm các tham số tìm kiếm vào object params
-    if (this.searchTerm.trim() !== '') {
-      params.productName = this.searchTerm;  // Tên sản phẩm
-    }
-  
-    if (this.minPrice != null) {
-      params.minPrice = this.minPrice;  // Giá tối thiểu
-    }
-  
-    if (this.maxPrice != null) {
-      params.maxPrice = this.maxPrice;  // Giá tối đa
-    }
-  
-    // Kiểm tra xem có ít nhất một tham số tìm kiếm được nhập không
-    if (Object.keys(params).length === 0) {
-      Swal.fire({
-        title: 'Thông báo',
-        text: 'Vui lòng nhập từ khóa  để tìm kiếm!',
-        icon: 'info',
-        confirmButtonText: 'OK',
-      });
-      return;
-    }
-  
-    // Gọi API tìm kiếm sản phẩm
-    this.productService.apiProductSearchProductsGet$Json(params
-    ).subscribe(
-      (response) => {
-        console.log('Search response:', response);
-        // Lọc danh sách sản phẩm theo kết quả trả về
+    onSearch(): void {
+  // Kiểm tra giá trị nhập cho giá min và max hợp lệ (>= 0)
+  if ((this.minPrice != null && this.minPrice < 0) || (this.maxPrice != null && this.maxPrice < 0)) {
+    Swal.fire({
+      title: 'Lỗi',
+      text: 'Giá tối thiểu và tối đa phải là số không âm.',
+      icon: 'error',
+      confirmButtonText: 'OK',
+    });
+    return;
+  }
+
+  // Tạo params tìm kiếm, chỉ thêm khi hợp lệ
+  const params: any = {};
+
+  if (this.searchTerm.trim() !== '') {
+    params.productName = this.searchTerm.trim();
+  }
+
+  if (this.minPrice != null) {
+    params.minPrice = this.minPrice;
+  }
+
+  if (this.maxPrice != null) {
+    params.maxPrice = this.maxPrice;
+  }
+
+  // Nếu không có params nào thì tải lại toàn bộ danh sách (hoặc bạn có thể thông báo)
+  if (Object.keys(params).length === 0) {
+    this.filteredProducts = this.products; // Hiển thị tất cả sản phẩm
+    this.currentPage = 1;
+    return;
+  }
+
+  // Gọi API tìm kiếm sản phẩm
+  this.productService.apiProductSearchProductsGet$Json(params).subscribe({
+    next: (response) => {
+      // response ở đây đã là ResultCustomModel<List<GetListProductSpResult>>
+      if (response.success) {
         this.filteredProducts = response.data ?? [];
-        this.currentPage = 1; // Reset lại trang khi tìm kiếm
-      },
-      (error) => {
-        console.error('Error while searching products', error);
+        this.currentPage = 1;
+      } else {
+        this.filteredProducts = [];
         Swal.fire({
-          title: 'Lỗi!',
-          text: 'Có lỗi xảy ra khi tìm kiếm sản phẩm!',
-          icon: 'error',
+          title: 'Thông báo',
+          text: response.message || 'Không tìm thấy sản phẩm.',
+          icon: 'info',
           confirmButtonText: 'OK',
         });
       }
-    );
-  }
-  
+    },
+    error: (error) => {
+      console.error('Error while searching products', error);
+      Swal.fire({
+        title: 'Lỗi!',
+        text: 'Có lỗi xảy ra khi tìm kiếm sản phẩm!',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      });
+    }
+  });
+}
+
 
   filterProductsByCategory(category: string): void {
     this.selectedCategory = category;

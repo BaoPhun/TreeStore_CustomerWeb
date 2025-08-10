@@ -1,9 +1,14 @@
-<!-- Navbar chiếm toàn bộ chiều rộng -->
-<app-navbar [ngClass]="{ 'hidden': isAuthPage() }" class="w-full "></app-navbar>
+<!-- Navbar -->
+<app-navbar *ngIf="!isAuthPage()" class="w-full"></app-navbar>
 
-<!-- Phần nội dung chính - chiếm toàn bộ chiều cao còn lại sau navbar -->
-<div class="w-full  h-screen flex flex-col items-stretch mt-14">
+<!-- Nội dung -->
+<div 
+  class="w-full flex flex-col items-stretch"
+  [ngClass]="{
+    'h-screen mt-0': isAuthPage(),
+    'h-screen mt-14': !isAuthPage()
+  }"
+>
   <router-outlet></router-outlet>
-
-
+    <app-footer></app-footer>
 </div>
