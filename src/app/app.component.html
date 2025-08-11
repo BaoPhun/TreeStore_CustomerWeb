@@ -1,7 +1,5 @@
-<!-- Navbar -->
 <app-navbar *ngIf="!isAuthPage()" class="w-full"></app-navbar>
 
-<!-- Nội dung -->
 <div 
   class="w-full flex flex-col items-stretch"
   [ngClass]="{
@@ -10,5 +8,5 @@
   }"
 >
   <router-outlet></router-outlet>
-    <app-footer></app-footer>
+  <app-footer *ngIf="showFooter"></app-footer>
 </div>

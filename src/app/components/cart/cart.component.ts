@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router'; 
 import Swal from 'sweetalert2';
+import { CartItem } from '../../api/models';
 
 @Component({
   selector: 'app-cart',
@@ -12,7 +13,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent {
-  cartItems: any[] = JSON.parse(localStorage.getItem('cartItems') || '[]'); // Lấy sản phẩm từ localStorage
+  cartItems: any[] = JSON.parse(localStorage.getItem('cartItems') || '[]'); 
   constructor(private router: Router) {}
 
   get total() {
@@ -70,7 +71,12 @@ export class CartComponent {
     this.router.navigate(['/dathang'], { state: { items: this.cartItems } });
   }
 
-  formatCurrency(value: number): string {
-    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + 'đ';
+    formatCurrency(value: number): string {
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + 'đ';
+    }
+    preventNegative(event: KeyboardEvent) {
+    if (event.key === '-' || event.key === 'e') {
+      event.preventDefault();
+    }
   }
 }
