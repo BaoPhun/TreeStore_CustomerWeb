@@ -10,18 +10,18 @@ import { RequestBuilder } from '../../request-builder';
 
 import { GetListProductSpResultListResultCustomModel } from '../../models/get-list-product-sp-result-list-result-custom-model';
 
-export interface ApiProductSearchByNameGet$Json$Params {
-  name?: string;
+export interface ApiProductGetProductsByCategoryGet$Plain$Params {
+  categoryId?: number;
 }
 
-export function apiProductSearchByNameGet$Json(http: HttpClient, rootUrl: string, params?: ApiProductSearchByNameGet$Json$Params, context?: HttpContext): Observable<StrictHttpResponse<GetListProductSpResultListResultCustomModel>> {
-  const rb = new RequestBuilder(rootUrl, apiProductSearchByNameGet$Json.PATH, 'get');
+export function apiProductGetProductsByCategoryGet$Plain(http: HttpClient, rootUrl: string, params?: ApiProductGetProductsByCategoryGet$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<GetListProductSpResultListResultCustomModel>> {
+  const rb = new RequestBuilder(rootUrl, apiProductGetProductsByCategoryGet$Plain.PATH, 'get');
   if (params) {
-    rb.query('name', params.name, {});
+    rb.query('categoryId', params.categoryId, {});
   }
 
   return http.request(
-    rb.build({ responseType: 'json', accept: 'text/json', context })
+    rb.build({ responseType: 'text', accept: 'text/plain', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
@@ -30,4 +30,4 @@ export function apiProductSearchByNameGet$Json(http: HttpClient, rootUrl: string
   );
 }
 
-apiProductSearchByNameGet$Json.PATH = '/api/Product/SearchByName';
+apiProductGetProductsByCategoryGet$Plain.PATH = '/api/Product/GetProductsByCategory';

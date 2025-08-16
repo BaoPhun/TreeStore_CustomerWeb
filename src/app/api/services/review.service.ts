@@ -31,11 +31,12 @@ import { apiReviewGetTotalReviewsTotalReviewsGet$Json } from '../fn/review/api-r
 import { ApiReviewGetTotalReviewsTotalReviewsGet$Json$Params } from '../fn/review/api-review-get-total-reviews-total-reviews-get-json';
 import { apiReviewGetTotalReviewsTotalReviewsGet$Plain } from '../fn/review/api-review-get-total-reviews-total-reviews-get-plain';
 import { ApiReviewGetTotalReviewsTotalReviewsGet$Plain$Params } from '../fn/review/api-review-get-total-reviews-total-reviews-get-plain';
-import { apiReviewListReviewGet$Json } from '../fn/review/api-review-list-review-get-json';
-import { ApiReviewListReviewGet$Json$Params } from '../fn/review/api-review-list-review-get-json';
-import { apiReviewListReviewGet$Plain } from '../fn/review/api-review-list-review-get-plain';
-import { ApiReviewListReviewGet$Plain$Params } from '../fn/review/api-review-list-review-get-plain';
+import { apiReviewListCustomersGet$Json } from '../fn/review/api-review-list-customers-get-json';
+import { ApiReviewListCustomersGet$Json$Params } from '../fn/review/api-review-list-customers-get-json';
+import { apiReviewListCustomersGet$Plain } from '../fn/review/api-review-list-customers-get-plain';
+import { ApiReviewListCustomersGet$Plain$Params } from '../fn/review/api-review-list-customers-get-plain';
 import { BooleanResultCustomModel } from '../models/boolean-result-custom-model';
+import { GetReviewInfoWithCustomerResultListResultCustomModel } from '../models/get-review-info-with-customer-result-list-result-custom-model';
 import { Int32ResultCustomModel } from '../models/int-32-result-custom-model';
 import { ReviewResponseListResultCustomModel } from '../models/review-response-list-result-custom-model';
 import { ReviewResponseResultCustomModel } from '../models/review-response-result-custom-model';
@@ -46,50 +47,50 @@ export class ReviewService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `apiReviewListReviewGet()` */
-  static readonly ApiReviewListReviewGetPath = '/api/Review/ListReview';
+  /** Path part for operation `apiReviewListCustomersGet()` */
+  static readonly ApiReviewListCustomersGetPath = '/api/Review/ListCustomers';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiReviewListReviewGet$Plain()` instead.
+   * To access only the response body, use `apiReviewListCustomersGet$Plain()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiReviewListReviewGet$Plain$Response(params?: ApiReviewListReviewGet$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<ReviewResponseListResultCustomModel>> {
-    return apiReviewListReviewGet$Plain(this.http, this.rootUrl, params, context);
+  apiReviewListCustomersGet$Plain$Response(params?: ApiReviewListCustomersGet$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<GetReviewInfoWithCustomerResultListResultCustomModel>> {
+    return apiReviewListCustomersGet$Plain(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiReviewListReviewGet$Plain$Response()` instead.
+   * To access the full response (for headers, for example), `apiReviewListCustomersGet$Plain$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiReviewListReviewGet$Plain(params?: ApiReviewListReviewGet$Plain$Params, context?: HttpContext): Observable<ReviewResponseListResultCustomModel> {
-    return this.apiReviewListReviewGet$Plain$Response(params, context).pipe(
-      map((r: StrictHttpResponse<ReviewResponseListResultCustomModel>): ReviewResponseListResultCustomModel => r.body)
+  apiReviewListCustomersGet$Plain(params?: ApiReviewListCustomersGet$Plain$Params, context?: HttpContext): Observable<GetReviewInfoWithCustomerResultListResultCustomModel> {
+    return this.apiReviewListCustomersGet$Plain$Response(params, context).pipe(
+      map((r: StrictHttpResponse<GetReviewInfoWithCustomerResultListResultCustomModel>): GetReviewInfoWithCustomerResultListResultCustomModel => r.body)
     );
   }
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiReviewListReviewGet$Json()` instead.
+   * To access only the response body, use `apiReviewListCustomersGet$Json()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiReviewListReviewGet$Json$Response(params?: ApiReviewListReviewGet$Json$Params, context?: HttpContext): Observable<StrictHttpResponse<ReviewResponseListResultCustomModel>> {
-    return apiReviewListReviewGet$Json(this.http, this.rootUrl, params, context);
+  apiReviewListCustomersGet$Json$Response(params?: ApiReviewListCustomersGet$Json$Params, context?: HttpContext): Observable<StrictHttpResponse<GetReviewInfoWithCustomerResultListResultCustomModel>> {
+    return apiReviewListCustomersGet$Json(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiReviewListReviewGet$Json$Response()` instead.
+   * To access the full response (for headers, for example), `apiReviewListCustomersGet$Json$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiReviewListReviewGet$Json(params?: ApiReviewListReviewGet$Json$Params, context?: HttpContext): Observable<ReviewResponseListResultCustomModel> {
-    return this.apiReviewListReviewGet$Json$Response(params, context).pipe(
-      map((r: StrictHttpResponse<ReviewResponseListResultCustomModel>): ReviewResponseListResultCustomModel => r.body)
+  apiReviewListCustomersGet$Json(params?: ApiReviewListCustomersGet$Json$Params, context?: HttpContext): Observable<GetReviewInfoWithCustomerResultListResultCustomModel> {
+    return this.apiReviewListCustomersGet$Json$Response(params, context).pipe(
+      map((r: StrictHttpResponse<GetReviewInfoWithCustomerResultListResultCustomModel>): GetReviewInfoWithCustomerResultListResultCustomModel => r.body)
     );
   }
 

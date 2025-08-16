@@ -61,6 +61,8 @@ import { apiCustomerUpdateCustomerPut$Json } from '../fn/customer/api-customer-u
 import { ApiCustomerUpdateCustomerPut$Json$Params } from '../fn/customer/api-customer-update-customer-put-json';
 import { apiCustomerUpdateCustomerPut$Plain } from '../fn/customer/api-customer-update-customer-put-plain';
 import { ApiCustomerUpdateCustomerPut$Plain$Params } from '../fn/customer/api-customer-update-customer-put-plain';
+import { apiCustomerUploadAvatarUploadAvatarPost } from '../fn/customer/api-customer-upload-avatar-upload-avatar-post';
+import { ApiCustomerUploadAvatarUploadAvatarPost$Params } from '../fn/customer/api-customer-upload-avatar-upload-avatar-post';
 import { BooleanResultCustomModel } from '../models/boolean-result-custom-model';
 import { CustomerResponseListResultCustomModel } from '../models/customer-response-list-result-custom-model';
 import { CustomerResponseResultCustomModel } from '../models/customer-response-result-custom-model';
@@ -662,6 +664,31 @@ export class CustomerService extends BaseService {
   apiCustomerGetTotalCustomersTotalCustomerGet$Json(params?: ApiCustomerGetTotalCustomersTotalCustomerGet$Json$Params, context?: HttpContext): Observable<Int32ResultCustomModel> {
     return this.apiCustomerGetTotalCustomersTotalCustomerGet$Json$Response(params, context).pipe(
       map((r: StrictHttpResponse<Int32ResultCustomModel>): Int32ResultCustomModel => r.body)
+    );
+  }
+
+  /** Path part for operation `apiCustomerUploadAvatarUploadAvatarPost()` */
+  static readonly ApiCustomerUploadAvatarUploadAvatarPostPath = '/api/Customer/UploadAvatar/UploadAvatar';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCustomerUploadAvatarUploadAvatarPost()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  apiCustomerUploadAvatarUploadAvatarPost$Response(params?: ApiCustomerUploadAvatarUploadAvatarPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiCustomerUploadAvatarUploadAvatarPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCustomerUploadAvatarUploadAvatarPost$Response()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  apiCustomerUploadAvatarUploadAvatarPost(params?: ApiCustomerUploadAvatarUploadAvatarPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiCustomerUploadAvatarUploadAvatarPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

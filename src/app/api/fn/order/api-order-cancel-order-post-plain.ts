@@ -8,14 +8,16 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { ReviewResponseListResultCustomModel } from '../../models/review-response-list-result-custom-model';
+import { BooleanResultCustomModel } from '../../models/boolean-result-custom-model';
 
-export interface ApiReviewListReviewGet$Plain$Params {
+export interface ApiOrderCancelOrderPost$Plain$Params {
+  orderId?: number;
 }
 
-export function apiReviewListReviewGet$Plain(http: HttpClient, rootUrl: string, params?: ApiReviewListReviewGet$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<ReviewResponseListResultCustomModel>> {
-  const rb = new RequestBuilder(rootUrl, apiReviewListReviewGet$Plain.PATH, 'get');
+export function apiOrderCancelOrderPost$Plain(http: HttpClient, rootUrl: string, params?: ApiOrderCancelOrderPost$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<BooleanResultCustomModel>> {
+  const rb = new RequestBuilder(rootUrl, apiOrderCancelOrderPost$Plain.PATH, 'post');
   if (params) {
+    rb.query('orderId', params.orderId, {});
   }
 
   return http.request(
@@ -23,9 +25,9 @@ export function apiReviewListReviewGet$Plain(http: HttpClient, rootUrl: string, 
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<ReviewResponseListResultCustomModel>;
+      return r as StrictHttpResponse<BooleanResultCustomModel>;
     })
   );
 }
 
-apiReviewListReviewGet$Plain.PATH = '/api/Review/ListReview';
+apiOrderCancelOrderPost$Plain.PATH = '/api/Order/CancelOrder';

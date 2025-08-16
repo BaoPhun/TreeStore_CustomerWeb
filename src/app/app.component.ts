@@ -19,7 +19,7 @@ export class AppComponent {
   constructor(public router: Router) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        // Ẩn footer ở trang giỏ hàng (ví dụ /giohang)
+        // Ẩn footer ở trang giỏ hàng 
         this.showFooter = !event.urlAfterRedirects.includes('/giohang');
       }
     });

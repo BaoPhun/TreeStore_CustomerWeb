@@ -4,6 +4,8 @@
 
 export type { ActiveRequestPromotion } from './models/active-request-promotion';
 export type { BooleanResultCustomModel } from './models/boolean-result-custom-model';
+export type { CaptureOrderResponse } from './models/capture-order-response';
+export type { CaptureOrderResponseResultCustomModel } from './models/capture-order-response-result-custom-model';
 export type { CartItem } from './models/cart-item';
 export type { Category } from './models/category';
 export type { CategoryListResultCustomModel } from './models/category-list-result-custom-model';
@@ -11,6 +13,7 @@ export type { CategoryResultCustomModel } from './models/category-result-custom-
 export type { CheckPromotionModel } from './models/check-promotion-model';
 export type { CreateCategoryRequest } from './models/create-category-request';
 export type { CreateCategoryRequestListResultCustomModel } from './models/create-category-request-list-result-custom-model';
+export type { CreateOrderDto } from './models/create-order-dto';
 export type { CreateOrderRequest } from './models/create-order-request';
 export type { CreateProductRequest } from './models/create-product-request';
 export type { CreateUserRequest } from './models/create-user-request';
@@ -23,6 +26,10 @@ export type { DeactivateAccountRequest } from './models/deactivate-account-reque
 export type { DeactivateCustomerRequest } from './models/deactivate-customer-request';
 export type { DetailOrderReponse } from './models/detail-order-reponse';
 export type { DetailOrderReponseResultCustomModel } from './models/detail-order-reponse-result-custom-model';
+export type { Favorite } from './models/favorite';
+export type { FavoriteProductResponse } from './models/favorite-product-response';
+export type { FavoriteProductResponseListResultCustomModel } from './models/favorite-product-response-list-result-custom-model';
+export type { FavoriteRequest } from './models/favorite-request';
 export type { GetDetailProductOrderSpResult } from './models/get-detail-product-order-sp-result';
 export type { GetListOrderByCustomerIdSpResult } from './models/get-list-order-by-customer-id-sp-result';
 export type { GetListOrderByCustomerIdSpResultListResultCustomModel } from './models/get-list-order-by-customer-id-sp-result-list-result-custom-model';
@@ -30,6 +37,9 @@ export type { GetListOrderSpResult } from './models/get-list-order-sp-result';
 export type { GetListOrderSpResultListResultCustomModel } from './models/get-list-order-sp-result-list-result-custom-model';
 export type { GetListProductSpResult } from './models/get-list-product-sp-result';
 export type { GetListProductSpResultListResultCustomModel } from './models/get-list-product-sp-result-list-result-custom-model';
+export type { GetReviewInfoWithCustomerResult } from './models/get-review-info-with-customer-result';
+export type { GetReviewInfoWithCustomerResultListResultCustomModel } from './models/get-review-info-with-customer-result-list-result-custom-model';
+export type { GoogleSignInRequest } from './models/google-sign-in-request';
 export type { Int32ResultCustomModel } from './models/int-32-result-custom-model';
 export type { LoginCustomer } from './models/login-customer';
 export type { LoginRequest } from './models/login-request';
@@ -43,6 +53,8 @@ export type { ProductListResultCustomModel } from './models/product-list-result-
 export type { ProductOrder } from './models/product-order';
 export type { ProductResponse } from './models/product-response';
 export type { ProductResponseResultCustomModel } from './models/product-response-result-custom-model';
+export type { ProductResponseSale } from './models/product-response-sale';
+export type { ProductResponseSaleListResultCustomModel } from './models/product-response-sale-list-result-custom-model';
 export type { Promotion } from './models/promotion';
 export type { PromotionRequest } from './models/promotion-request';
 export type { PromotionResponse } from './models/promotion-response';

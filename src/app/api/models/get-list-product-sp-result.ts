@@ -7,6 +7,8 @@ export interface GetListProductSpResult {
   categoryName?: string | null;
   description?: string | null;
   img?: string | null;
+  img2?: string | null;
+  img3?: string | null;
   isActive?: boolean | null;
   priceOutput?: number;
   productId?: number;

@@ -10,6 +10,7 @@ export interface Order {
   createOn?: string;
   customer?: Customer;
   customerId?: number;
+  isPaid?: boolean | null;
   note?: string | null;
   orderId?: number;
   productOrders?: Array<ProductOrder> | null;

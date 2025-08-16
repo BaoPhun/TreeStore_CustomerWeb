@@ -6,6 +6,7 @@ export interface CustomerRequest {
   address?: string | null;
   email?: string | null;
   fullName?: string | null;
+  image?: string | null;
   password?: string | null;
   phone?: string | null;
   username?: string | null;

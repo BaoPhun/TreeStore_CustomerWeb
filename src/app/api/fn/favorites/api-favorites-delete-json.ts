@@ -8,15 +8,15 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { CreateOrderRequest } from '../../models/create-order-request';
-import { Int32ResultCustomModel } from '../../models/int-32-result-custom-model';
+import { FavoriteRequest } from '../../models/favorite-request';
+import { StringResultCustomModel } from '../../models/string-result-custom-model';
 
-export interface ApiOrderCreatePost$Json$Params {
-      body?: CreateOrderRequest
+export interface ApiFavoritesDelete$Json$Params {
+      body?: FavoriteRequest
 }
 
-export function apiOrderCreatePost$Json(http: HttpClient, rootUrl: string, params?: ApiOrderCreatePost$Json$Params, context?: HttpContext): Observable<StrictHttpResponse<Int32ResultCustomModel>> {
-  const rb = new RequestBuilder(rootUrl, apiOrderCreatePost$Json.PATH, 'post');
+export function apiFavoritesDelete$Json(http: HttpClient, rootUrl: string, params?: ApiFavoritesDelete$Json$Params, context?: HttpContext): Observable<StrictHttpResponse<StringResultCustomModel>> {
+  const rb = new RequestBuilder(rootUrl, apiFavoritesDelete$Json.PATH, 'delete');
   if (params) {
     rb.body(params.body, 'application/*+json');
   }
@@ -26,9 +26,9 @@ export function apiOrderCreatePost$Json(http: HttpClient, rootUrl: string, param
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Int32ResultCustomModel>;
+      return r as StrictHttpResponse<StringResultCustomModel>;
     })
   );
 }
 
-apiOrderCreatePost$Json.PATH = '/api/Order/Create';
+apiFavoritesDelete$Json.PATH = '/api/Favorites';

@@ -4,13 +4,11 @@
 
 import { Customer } from '../models/customer';
 import { Product } from '../models/product';
-export interface Review {
-  comment?: string | null;
+export interface Favorite {
   createOn?: string;
   customer?: Customer;
   customerId?: number;
-  isActive?: boolean | null;
+  favoriteId?: number;
   product?: Product;
   productId?: number;
-  reviewId?: number;
 }

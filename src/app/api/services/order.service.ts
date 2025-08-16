@@ -11,6 +11,12 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { apiOrderCancelOrderPost$Json } from '../fn/order/api-order-cancel-order-post-json';
+import { ApiOrderCancelOrderPost$Json$Params } from '../fn/order/api-order-cancel-order-post-json';
+import { apiOrderCancelOrderPost$Plain } from '../fn/order/api-order-cancel-order-post-plain';
+import { ApiOrderCancelOrderPost$Plain$Params } from '../fn/order/api-order-cancel-order-post-plain';
+import { apiOrderCaptureOrderPost } from '../fn/order/api-order-capture-order-post';
+import { ApiOrderCaptureOrderPost$Params } from '../fn/order/api-order-capture-order-post';
 import { apiOrderChangeStateOrderPost$Json } from '../fn/order/api-order-change-state-order-post-json';
 import { ApiOrderChangeStateOrderPost$Json$Params } from '../fn/order/api-order-change-state-order-post-json';
 import { apiOrderChangeStateOrderPost$Plain } from '../fn/order/api-order-change-state-order-post-plain';
@@ -66,7 +72,7 @@ export class OrderService extends BaseService {
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiOrderCreatePost$Plain$Response(params?: ApiOrderCreatePost$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<BooleanResultCustomModel>> {
+  apiOrderCreatePost$Plain$Response(params?: ApiOrderCreatePost$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<Int32ResultCustomModel>> {
     return apiOrderCreatePost$Plain(this.http, this.rootUrl, params, context);
   }
 
@@ -76,9 +82,9 @@ export class OrderService extends BaseService {
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiOrderCreatePost$Plain(params?: ApiOrderCreatePost$Plain$Params, context?: HttpContext): Observable<BooleanResultCustomModel> {
+  apiOrderCreatePost$Plain(params?: ApiOrderCreatePost$Plain$Params, context?: HttpContext): Observable<Int32ResultCustomModel> {
     return this.apiOrderCreatePost$Plain$Response(params, context).pipe(
-      map((r: StrictHttpResponse<BooleanResultCustomModel>): BooleanResultCustomModel => r.body)
+      map((r: StrictHttpResponse<Int32ResultCustomModel>): Int32ResultCustomModel => r.body)
     );
   }
 
@@ -88,7 +94,7 @@ export class OrderService extends BaseService {
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiOrderCreatePost$Json$Response(params?: ApiOrderCreatePost$Json$Params, context?: HttpContext): Observable<StrictHttpResponse<BooleanResultCustomModel>> {
+  apiOrderCreatePost$Json$Response(params?: ApiOrderCreatePost$Json$Params, context?: HttpContext): Observable<StrictHttpResponse<Int32ResultCustomModel>> {
     return apiOrderCreatePost$Json(this.http, this.rootUrl, params, context);
   }
 
@@ -98,9 +104,9 @@ export class OrderService extends BaseService {
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiOrderCreatePost$Json(params?: ApiOrderCreatePost$Json$Params, context?: HttpContext): Observable<BooleanResultCustomModel> {
+  apiOrderCreatePost$Json(params?: ApiOrderCreatePost$Json$Params, context?: HttpContext): Observable<Int32ResultCustomModel> {
     return this.apiOrderCreatePost$Json$Response(params, context).pipe(
-      map((r: StrictHttpResponse<BooleanResultCustomModel>): BooleanResultCustomModel => r.body)
+      map((r: StrictHttpResponse<Int32ResultCustomModel>): Int32ResultCustomModel => r.body)
     );
   }
 
@@ -430,6 +436,78 @@ export class OrderService extends BaseService {
   apiOrderGetTotalOrdersTotalOrdersGet$Json(params?: ApiOrderGetTotalOrdersTotalOrdersGet$Json$Params, context?: HttpContext): Observable<Int32ResultCustomModel> {
     return this.apiOrderGetTotalOrdersTotalOrdersGet$Json$Response(params, context).pipe(
       map((r: StrictHttpResponse<Int32ResultCustomModel>): Int32ResultCustomModel => r.body)
+    );
+  }
+
+  /** Path part for operation `apiOrderCancelOrderPost()` */
+  static readonly ApiOrderCancelOrderPostPath = '/api/Order/CancelOrder';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiOrderCancelOrderPost$Plain()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiOrderCancelOrderPost$Plain$Response(params?: ApiOrderCancelOrderPost$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<BooleanResultCustomModel>> {
+    return apiOrderCancelOrderPost$Plain(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiOrderCancelOrderPost$Plain$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiOrderCancelOrderPost$Plain(params?: ApiOrderCancelOrderPost$Plain$Params, context?: HttpContext): Observable<BooleanResultCustomModel> {
+    return this.apiOrderCancelOrderPost$Plain$Response(params, context).pipe(
+      map((r: StrictHttpResponse<BooleanResultCustomModel>): BooleanResultCustomModel => r.body)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiOrderCancelOrderPost$Json()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiOrderCancelOrderPost$Json$Response(params?: ApiOrderCancelOrderPost$Json$Params, context?: HttpContext): Observable<StrictHttpResponse<BooleanResultCustomModel>> {
+    return apiOrderCancelOrderPost$Json(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiOrderCancelOrderPost$Json$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiOrderCancelOrderPost$Json(params?: ApiOrderCancelOrderPost$Json$Params, context?: HttpContext): Observable<BooleanResultCustomModel> {
+    return this.apiOrderCancelOrderPost$Json$Response(params, context).pipe(
+      map((r: StrictHttpResponse<BooleanResultCustomModel>): BooleanResultCustomModel => r.body)
+    );
+  }
+
+  /** Path part for operation `apiOrderCaptureOrderPost()` */
+  static readonly ApiOrderCaptureOrderPostPath = '/api/Order/CaptureOrder';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiOrderCaptureOrderPost()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiOrderCaptureOrderPost$Response(params?: ApiOrderCaptureOrderPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiOrderCaptureOrderPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiOrderCaptureOrderPost$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiOrderCaptureOrderPost(params?: ApiOrderCaptureOrderPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiOrderCaptureOrderPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

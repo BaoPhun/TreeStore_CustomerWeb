@@ -6,10 +6,14 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
+import { AuthService } from './services/auth.service';
 import { CategoryService } from './services/category.service';
 import { CustomerService } from './services/customer.service';
+import { ExportService } from './services/export.service';
+import { FavoritesService } from './services/favorites.service';
 import { LoginService } from './services/login.service';
 import { OrderService } from './services/order.service';
+import { PayPalService } from './services/pay-pal.service';
 import { ProductService } from './services/product.service';
 import { PromotionService } from './services/promotion.service';
 import { ReviewService } from './services/review.service';
@@ -24,10 +28,14 @@ import { UserService } from './services/user.service';
   exports: [],
   declarations: [],
   providers: [
+    AuthService,
     CategoryService,
     CustomerService,
+    ExportService,
+    FavoritesService,
     LoginService,
     OrderService,
+    PayPalService,
     ProductService,
     PromotionService,
     ReviewService,
