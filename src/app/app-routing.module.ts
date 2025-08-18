@@ -14,6 +14,7 @@ export const routes: Routes = [
   { path: 'home', loadComponent: () => import('./components/home/home.component').then(m => m.HomeComponent) },
   { path: 'gioithieu', loadComponent: () => import('./components/introduce/introduce.component').then(m => m.IntroduceComponent) },
   { path: 'sanpham', loadComponent: () => import('./components/product/product.component').then(m => m.ProductComponent) },
+  { path: 'sanphamyeuthich', loadComponent: () => import('./components/favorites/favorites.component').then(m => m.FavoritesComponent) },
   { path: 'lienhe', loadComponent: () => import('./components/contact/contact.component').then(m => m.ContactComponent) },
   { path: 'giohang', loadComponent: () => import('./components/cart/cart.component').then(m => m.CartComponent) },
   { path: 'dathang', loadComponent: () => import('./components/order/order.component').then(m => m.OrderComponent) },

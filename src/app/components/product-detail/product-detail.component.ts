@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CustomerService, ProductService, ReviewService } from '../../api/services';
+import { CustomerService, ProductService, ReviewService, FavoritesService } from '../../api/services';
 import { BooleanResultCustomModel, ProductResponse, Review } from '../../api/models';
 import { CommonModule } from '@angular/common';
 import { ApiConfiguration } from '../../api/api-configuration';
@@ -17,11 +17,13 @@ import { ReviewComponent } from '../review/review-user.component';
 })
 export class ProductDetailComponent implements OnInit {
   productId: number = 0;
-  product!: ProductResponse;
+  // 👇 mở rộng ProductResponse để có isFavorite
+  product!: ProductResponse & { isFavorite?: boolean };
   rootUrl: string;
   quantity: number = 1;
   listReviewDB: Review[] = [];
   cartItems: any[] = JSON.parse(localStorage.getItem('cartItems') || '[]');
+  customerId: number = Number(localStorage.getItem('customerId') || 0);
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +31,7 @@ export class ProductDetailComponent implements OnInit {
     private productService: ProductService,
     private reviewService: ReviewService,
     private customerService: CustomerService,
+    private favoritesService: FavoritesService, // 👈 thêm service yêu thích
     private config: ApiConfiguration
   ) {
     this.rootUrl = config.rootUrl;
@@ -45,7 +48,15 @@ export class ProductDetailComponent implements OnInit {
     this.productService.apiProductGetProductByIdGet$Json(params).subscribe(
       (response) => {
         if (response.success && response.data) {
-          this.product = response.data;
+          this.product = { ...response.data, isFavorite: false };
+
+          // Gọi API favorites để check sản phẩm này có trong yêu thích không
+          this.favoritesService.apiFavoritesCustomerIdGet$Json({ customerId: this.customerId })
+            .subscribe(favRes => {
+              const favIds = (favRes.data ?? []).map(f => Number(f.productId));
+              this.product.isFavorite = favIds.includes(this.productId);
+            });
+
         } else {
           console.error('Không thể lấy thông tin sản phẩm hoặc không có dữ liệu');
         }
@@ -74,12 +85,7 @@ export class ProductDetailComponent implements OnInit {
 
     localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
 
-    Swal.fire({
-      title: 'Thành công!',
-      text: 'Sản phẩm đã được thêm vào giỏ hàng!',
-      icon: 'success',
-      confirmButtonText: 'OK'
-    });
+    Swal.fire('Thành công!', 'Sản phẩm đã được thêm vào giỏ hàng!', 'success');
   }
 
   loadReviews(): void {
@@ -99,7 +105,6 @@ export class ProductDetailComponent implements OnInit {
     );
   }
 
-  // Lấy tên khách hàng hiển thị
   getCustomerName(review: Review): string {
     return review.customer?.fullName ?? 'Người dùng ẩn danh';
   }
@@ -142,5 +147,34 @@ export class ProductDetailComponent implements OnInit {
 
   navigateToReview(): void {
     this.router.navigate(['/danhgia', this.productId]);
+  }
+
+  toggleFavorite(): void {
+    if (!this.customerId) {
+      Swal.fire('Thông báo', 'Bạn cần đăng nhập để sử dụng chức năng này', 'info');
+      return;
+    }
+
+    if (this.product.isFavorite) {
+      this.favoritesService.apiFavoritesDelete$Json({ body: { customerId: this.customerId, productId: this.productId } })
+        .subscribe(res => {
+          if (res.success) {
+            this.product.isFavorite = false;
+            Swal.fire('Đã xóa khỏi yêu thích', '', 'success');
+          } else {
+            Swal.fire('Lỗi', res.message ?? 'Không thể xóa', 'error');
+          }
+        });
+    } else {
+      this.favoritesService.apiFavoritesPost$Json({ body: { customerId: this.customerId, productId: this.productId } })
+        .subscribe(res => {
+          if (res.success) {
+            this.product.isFavorite = true;
+            Swal.fire('Đã thêm vào yêu thích', '', 'success');
+          } else {
+            Swal.fire('Lỗi', res.message ?? 'Không thể thêm', 'error');
+          }
+        });
+    }
   }
 }

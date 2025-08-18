@@ -14,4 +14,5 @@ export interface GetListProductSpResult {
   productId?: number;
   productName?: string | null;
   quantity?: number;
+  totalSold?: number;
 }

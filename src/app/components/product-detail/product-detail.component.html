@@ -30,12 +30,26 @@
       </div>
     </div>
 
+    <!-- Nút thêm vào giỏ hàng -->
     <button 
-      class="add-to-cart-btn bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-500 active:bg-blue-700 transition"
+      class="add-to-cart-btn bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-500 active:bg-blue-700 transition mb-4"
       (click)="addToCart()"
     >
-      Thêm vào giỏ hàng
+      <i class="fas fa-shopping-cart mr-2"></i> Thêm vào giỏ hàng
     </button>
+
+    <!-- Nút thêm/bỏ yêu thích -->
+    <button 
+      (click)="toggleFavorite()" 
+      class="favorite-btn flex items-center justify-center border border-red-500 text-red-500 py-3 rounded-lg font-semibold hover:bg-red-50 transition"
+    >
+      <i 
+        class="mr-2"
+        [ngClass]="product.isFavorite ? 'fa-solid fa-heart text-red-500' : 'fa-regular fa-heart text-gray-500'"
+      ></i>
+      {{ product.isFavorite ? 'Bỏ khỏi yêu thích' : 'Thêm vào yêu thích' }}
+    </button>
+
 
     <!-- Dịch vụ đi kèm -->
     <div class="additional-services mt-8 p-5 bg-gray-50 rounded-lg border border-gray-200">

@@ -30,7 +30,6 @@ export class ProductComponent implements OnInit {
   quantity = 1;
 
   customerId: number = Number(localStorage.getItem('customerId') || 0);
- // 👈 giả định user id
 
   constructor(
     private router: Router,
