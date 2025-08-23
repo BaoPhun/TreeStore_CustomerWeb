@@ -6,6 +6,7 @@ import { CartItem } from '../models/cart-item';
 export interface CreateOrderRequest {
   cartItems?: Array<CartItem> | null;
   customerId?: number;
+  isPaid?: boolean;
   note?: string | null;
   promotionCode?: string | null;
   promotionId?: number | null;

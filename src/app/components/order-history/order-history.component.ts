@@ -51,6 +51,7 @@ export class OrderHistoryComponent implements OnInit {
                   orderDate: item.orderDate,
                   totalAmount: item.totalAmount,
                   state: item.state,
+                  isPaid: item.isPaid,
                 });
               }
             });

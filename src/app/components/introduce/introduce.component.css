@@ -43,4 +43,16 @@
   h3 {
     color: green;
   }
+.lg-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  border-radius: 1.5rem; /* rounded-3xl */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  padding: 2.5rem; /* tương đương p-10 */
+  transition: all 0.3s ease;
+}
+.lg-card:hover {
+  box-shadow: 0 20px 45px rgba(16, 185, 129, 0.18);
+  transform: translateY(-2px);
+}
   

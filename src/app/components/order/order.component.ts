@@ -7,6 +7,8 @@ import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
+declare var paypal: any; // khai báo global PayPal
+
 @Component({
   selector: 'app-order',
   standalone: true,
@@ -22,6 +24,9 @@ export class OrderComponent implements OnInit {
   isPromotionValid: boolean = true;
   discountAmount: number = 0;
   finalAmount: number = 0;
+
+  // 🌟 biến phương thức thanh toán
+  selectedPaymentMethod: string = 'cod'; // mặc định COD
 
   constructor(
     private router: Router,
@@ -62,39 +67,19 @@ export class OrderComponent implements OnInit {
           this.isPromotionValid = false;
           this.discountAmount = 0;
           this.finalAmount = totalAmount;
-
-          Swal.fire({
-            title: 'Mã giảm giá không hợp lệ',
-            text: 'Vui lòng kiểm tra lại mã và thử lại.',
-            icon: 'error',
-            confirmButtonText: 'OK'
-          });
+          Swal.fire({ title: 'Mã giảm giá không hợp lệ', text: 'Vui lòng kiểm tra lại mã và thử lại.', icon: 'error', confirmButtonText: 'OK' });
           return;
         }
-
         this.isPromotionValid = true;
         this.discountAmount = data.discountAmount || 0;
         this.finalAmount = data.finalAmount || totalAmount;
-
-        Swal.fire({
-          title: 'Mã giảm giá hợp lệ',
-          text: 'Áp mã thành công',
-          icon: 'success',
-          confirmButtonText: 'OK'
-        });
+        Swal.fire({ title: 'Mã giảm giá hợp lệ', text: 'Áp mã thành công', icon: 'success', confirmButtonText: 'OK' });
       },
       (error) => {
         this.isPromotionValid = false;
         this.discountAmount = 0;
         this.finalAmount = totalAmount;
-
-        Swal.fire({
-          title: 'Lỗi khi kiểm tra mã',
-          text: 'Không thể xác thực mã giảm giá. Vui lòng thử lại.',
-          icon: 'error',
-          confirmButtonText: 'OK'
-        });
-
+        Swal.fire({ title: 'Lỗi khi kiểm tra mã', text: 'Không thể xác thực mã giảm giá. Vui lòng thử lại.', icon: 'error', confirmButtonText: 'OK' });
         this.cdr.detectChanges();
       }
     );
@@ -108,7 +93,31 @@ export class OrderComponent implements OnInit {
     return this.finalAmount > 0 ? this.finalAmount : totalAmount;
   }
 
-  submitOrder() {
+onPaymentMethodChange() {
+  if (this.selectedPaymentMethod === 'paypal') {
+    setTimeout(() => this.payWithPaypal(), 0); // render nút PayPal
+  } else {
+    const container = document.getElementById('paypal-button-container');
+    if (container) container.innerHTML = ''; // xóa nút khi đổi phương thức
+  }
+}
+
+submitOrder() {
+  if (!this.selectedPaymentMethod) {
+    Swal.fire({ title: 'Vui lòng chọn phương thức thanh toán!', icon: 'warning', confirmButtonText: 'OK' });
+    return;
+  }
+
+  if (this.selectedPaymentMethod !== 'paypal') {
+    this.placeOrder(); // COD / Card
+  }
+  // PayPal: nút đã hiện, người dùng bấm nút PayPal sẽ tự gọi placeOrder()
+}
+
+
+
+
+  placeOrder(isPaid: boolean = false) {  // mặc định false cho COD / Card
   const customerId = parseInt(localStorage.getItem('customerId') || '0');
   if (!customerId || isNaN(customerId)) {
     console.error('Customer ID không hợp lệ');
@@ -122,52 +131,45 @@ export class OrderComponent implements OnInit {
     })),
     customerId,
     note: this.orderNote,
-    promotionCode: this.promotionCode || ''
+    promotionCode: this.promotionCode || '',
+    isPaid: isPaid
   };
 
-  Swal.fire({
-    title: 'Xác nhận đặt hàng',
-    text: 'Bạn có chắc chắn muốn đặt hàng?',
-    icon: 'question',
-    showCancelButton: true,
-    confirmButtonText: 'Đặt hàng',
-    cancelButtonText: 'Hủy'
-  }).then((result) => {
-    if (!result.isConfirmed) return;
-
-    // Dùng kiểu StrictHttpResponse<Int32ResultCustomModel> đúng với API
-    this.orderService.apiOrderCreatePost$Json$Response({ body: orderRequest })
-      .subscribe((response: StrictHttpResponse<Int32ResultCustomModel>) => {
-        const body = response.body;
-        if (body?.success && body?.data && body.data > 0) {
-          Swal.fire({
-            title: 'Đặt hàng thành công!',
-            text: 'Đơn hàng của bạn đã được xác nhận.',
-            icon: 'success',
-            confirmButtonText: 'OK'
-          }).then(() => {
-            localStorage.removeItem('cartItems');
-            this.router.navigate(['/sanpham']);
-          });
-        } else {
-          Swal.fire({
-            title: 'Đặt hàng không thành công',
-            text: body?.message || 'Đã có lỗi xảy ra',
-            icon: 'error',
-            confirmButtonText: 'OK'
-          });
-        }
-      }, (error) => {
-        Swal.fire({
-          title: 'Lỗi',
-          text: error?.message || 'Đã có lỗi xảy ra khi đặt hàng. Vui lòng thử lại.',
-          icon: 'error',
-          confirmButtonText: 'OK'
-        });
-        console.error('Lỗi khi đặt hàng:', error);
+  // Gửi isPaid thông qua backend
+  this.orderService.apiOrderCreatePost$Json({ body: orderRequest }).subscribe(
+    () => {
+      Swal.fire('Đặt hàng thành công', '', 'success').then(() => {
+        localStorage.removeItem('cartItems');
+        this.router.navigate(['/sanpham']);
       });
-  });
+    },
+    (err) => Swal.fire('Lỗi', 'Không thể tạo đơn hàng', 'error')
+  );
 }
+
+
+  payWithPaypal() {
+  const self = this;
+  const totalUSD = (this.total / 23000).toFixed(2);
+
+  paypal.Buttons({
+    createOrder(data: any, actions: any) {
+      return actions.order.create({
+        purchase_units: [{ amount: { value: totalUSD } }]
+      });
+    },
+    onApprove(data: any, actions: any) {
+      return actions.order.capture().then(function(details: any) {
+        Swal.fire('Thanh toán thành công', `Cảm ơn ${details.payer.name.given_name}`, 'success');
+        self.placeOrder(true); 
+      });
+    },
+    onError(err: any) {
+      Swal.fire('Thanh toán thất bại', err.message || '', 'error');
+    }
+  }).render('#paypal-button-container');
+}
+
 
 
   formatCurrency(value: number): string {

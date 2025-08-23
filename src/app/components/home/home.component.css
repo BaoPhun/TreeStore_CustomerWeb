@@ -69,6 +69,17 @@
   50% { transform: translateY(-10px); }
 }
 
+@keyframes shine {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.bg-shine-green {
+  background: linear-gradient(120deg, #22c55e 30%, #0bff65 50%, #22c55e 70%);
+  background-size: 200% 100%;
+  animation: shine 6s linear infinite;
+}
+
 
 
 

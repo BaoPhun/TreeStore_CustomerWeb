@@ -4,6 +4,7 @@
 
 export interface GetListOrderByCustomerIdSpResult {
   categoryName?: string | null;
+  isPaid?: boolean | null;
   orderDate?: string;
   orderId?: number;
   priceOutput?: number;

@@ -6,6 +6,7 @@ import { GetDetailProductOrderSpResult } from '../models/get-detail-product-orde
 export interface DetailOrderReponse {
   address?: string | null;
   detailProducts?: Array<GetDetailProductOrderSpResult> | null;
+  isPaid?: boolean;
   nameCustomer?: string | null;
   stateId?: number;
 }

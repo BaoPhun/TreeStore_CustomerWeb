@@ -12,39 +12,39 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
 
+    <!-- Thêm PayPal SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AVRBHKpRp1IFBGWhcfSMtewUb7gHVuDiLSZemq-h_QwWMHxMflaywRbZtvk12RP4IVCzlzhnXbrZ56Ml&currency=USD"></script>
 
-  <!-- Facebook Messenger Chat Plugin -->
-<div id="fb-root"></div>
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      xfbml            : true,
-      version          : 'v18.0'
-    });
-  };
+    <!-- Facebook Messenger Chat Plugin -->
+    <div id="fb-root"></div>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v18.0'
+        });
+      };
 
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-</script>
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
 
-<!-- Messenger Chat Plugin -->
-<div class="fb-customerchat z-100"
-  attribution="setup_tool"
-  page_id="423190620871450" 
-  theme_color="#0084ff"
-  logged_in_greeting="Chào bạn! Chúng tôi có thể giúp gì không?"
-  logged_out_greeting="Chào bạn! Hãy đăng nhập để trò chuyện với chúng tôi.">
-</div>
+    <!-- Messenger Chat Plugin -->
+    <div class="fb-customerchat z-100"
+      attribution="setup_tool"
+      page_id="423190620871450" 
+      theme_color="#0084ff"
+      logged_in_greeting="Chào bạn! Chúng tôi có thể giúp gì không?"
+      logged_out_greeting="Chào bạn! Hãy đăng nhập để trò chuyện với chúng tôi.">
+    </div>
 
-    <!-- End of LiveChat code -->
   </head>
   <body>
     <app-root></app-root>
-
   </body>
 </html>
